@@ -1,12 +1,13 @@
+n=10
 #1
+
 '''
-n=11
-for i in ([i,j] for i in range(n) for j in range(i,n) if i<j):
+for i in (str(i)+' '+str(j) for i in range(n) for j in range(i,n) if i<j):
     print(i)
 '''
 #2
 '''
-n=10
+
 def gen_for_exercise2(n):
     for i in range(1,n+1):
         if n%i==0:
@@ -39,67 +40,82 @@ def gen_for_exercise3(n):
         return None
     for i in gen2:
         yield i
-n=2
+
 for i in gen_for_exercise3(n):
     print(i)
 '''
 #4
+
 '''
-n=10
-def gen_for_exercise1(n):
-    for i in range(n):
-        for j in range(i,n):
-            if i<j:
-                yield [i,j]
 def gen_for_exercise4(n):
-    for i in gen_for_exercise1(n):
+    for i in (str(i)+' '+str(j) for i in range(n) for j in range(i,n) if i<j):
         yield i
 for i in gen_for_exercise4(n):
     print(i)
 
 '''
 #5
+'''
+def gen_for_exercise5(n):
+    for i in (str(i)+" "+str(j) for i in range(n) for j in range(i, n) if i < j):
+        for j in i:
+            if j in ['0','1','2','3','4','5','6','7','8','9']:
+                yield j
+for i in gen_for_exercise5(n):
+    print(i)
 
+'''
 #6
+'''
 def gen_for_exercise6(x,y):
+    while True:
+        send= yield [x,y]
+        if send=='south':
+            y+=1
+        if send=='east':
+            x+=1
+        if send=='north':
+            y-=1
+        if send=='west':
+            x-=1
+        if send=='stop':
+            break
 
-    try:
-        yield [x,y]
-        while True:
 
-            flag=yield
-            yield [x, y]
-            if flag=='south':
-                y+=1
-                print('y+')
-            elif flag=='east:':
-                x+=1
-                print('x+')
-            elif flag=='north':
-                y-=1
-                print('y-')
-            elif flag=='west':
-                x-=1
-                print('x-')
-            print(flag, x, y)
-
-    except StopIteration:
-        pass
 g=gen_for_exercise6(1,1)
 try:
+    print(g)
     print(next(g))
-    print(next(g))
-    g.send('south')
-    print(next(g))
-
-    g.send('east')
-    print(next(g))
-
-    #g.send('north')
-    #g.send('west')
-
+    print(g.send('south'))
+    print(g.send('east'))
+    print(g.send('north'))
+    print(g.send('west'))
+    print(g.send('stop'))
 except StopIteration:
-    print('Stop')
+    pass
+
+'''
+#7
+'''
+import  asyncio,datetime
+
+async def read_file(fname):
+    f=open(fname,'r')
+    n=0
+    for char in f.read():
+        n+=1
+    f.close()
+    return n
 
 
 
+async def read_file_for_exicise(fname):
+    print(datetime.datetime.now())
+    a=await read_file(fname)
+    print(a,datetime.datetime.now())
+    b=await read_file(fname)
+    print(b,datetime.datetime.now())
+asyncio.run(read_file_for_exicise('f.txt'))
+
+
+'''
