@@ -1,0 +1,16 @@
+{
+  "people": [
+    {
+      "phone": "4",
+      "name": "d"
+    },
+    {
+      "phone": "5",
+      "name": "e"
+    },
+    {
+      "phone": "6",
+      "name":  "f"
+    }
+  ]
+}
